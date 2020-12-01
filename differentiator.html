@@ -47,21 +47,21 @@ $(document).ready(function(){
         if(stringOne.substring(pt, pt+1) == "\n")
           {
             stringFinal += "<br/>";
-            pt+=2;
+            pt+=1;
           }
         if(stringTwo.substring(pt2, pt2+1) == "\n")
           {
             stringFinal2 += "<br/>";
-            pt2+=2;
+            pt2+=1;
           }
         while(stringOne[pt-2] == "\\" && stringOne[pt-1] == "n" && stringOne[pt] == "\\" && stringOne[pt+1] == "n")
           {
-            pt+= 2;
+            pt+= 1;
           }
 
-        while(stringTwo[pt2-2] == "\\" && stringTwo[pt2-1] == "n" && stringTwo[pt2] == "\\" && stringTwo[pt2+1] == "n")
+        while(stringTwo.substring(pt2,pt2+1) == "\n" && stringTwo.substring(pt2-1,pt2) == "\n")
           {
-            pt2+= 2;
+            pt2+= 1;
           }
           
         while(stringOne[pt-1] == " " && stringOne[pt] == " ")
@@ -101,16 +101,20 @@ $(document).ready(function(){
                }
             else
             {
-            if(stringTwo.indexOf(stringOne[pt]) > pt2)
+       
+              if(stringTwo.substring(pt2+1, stringTwo.length).indexOf(stringOne.substring(pt+1, pt + 2)) >= 0)
               {
-                stringFinal2 += stringTwo.substring(pt2+1, stringTwo.indexOf(stringOne[pt]) + 1);
-                pt2 = stringTwo.indexOf(stringOne[pt]);
+                
+                stringFinal2 += stringTwo.substring(pt2+2, (stringTwo.substring(pt2+2, stringTwo.length).indexOf(stringOne.substring(pt+1, pt + 2)) + pt2+2));
+                pt2 += stringTwo.substring(pt2+2, stringTwo.length).indexOf(stringOne.substring(pt+1, pt + 2));
+                pt = pt2;
               }
-        // if(stringOne.indexOf(stringTwo[pt2]) > pt)
-        //       {
-        //         stringFinal += stringOne.substring(pt+1, stringOne.indexOf(stringTwo[pt2]) + 1);
-        //         pt = stringOne.indexOf(stringTwo[pt2]);
-        //       }
+        else if(stringOne.substring(pt+1, stringOne.length).indexOf(stringTwo.substring(pt2+1, pt2 + 2)) >= 0)
+              {
+                stringFinal += stringOne.substring(pt+1, (stringOne.substring(pt+1, stringOne.length).indexOf(stringTwo.substring(pt2+1, pt2 + 2)) + pt2+1));
+                pt = stringOne.substring(pt+1, stringOne.length).indexOf(stringTwo.substring(pt2+1, pt2 + 2)) + pt;
+                pt2 = pt;
+              }
             stringFinal += "</span>";
               stringFinal2 += "</span>";
             }
