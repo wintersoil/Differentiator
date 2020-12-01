@@ -1,0 +1,139 @@
+<html>
+  <head>
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300&display=swap" rel="stylesheet">
+<style>
+body {
+  font-family: "Hind Siliguri";
+}
+.outputs {
+  display:flex;
+  flex-wrap: wrap;
+}
+.output-1 {
+  background-color: #333;
+  padding: 10px 20px;
+  flex-basis: 47%;
+  margin-right: 10px;
+  color: white;
+}
+.output-2 {
+  flex-basis: 47%;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+}
+.diff-one {
+  background-color: #FFAC9A;
+  color: white;
+}
+.diff-two {
+  background-color: lightgreen;
+  color: white;
+}
+</style>
+<script>
+$(document).ready(function(){
+  $(".difference").click(function(){
+    stringOne = $(".inputting-first").val();
+    stringTwo = $(".inputting-second").val();
+    stringFinal = "";
+    stringFinal2 = "";
+    let pt2 = 0;
+    for(let pt = 0; pt < stringOne.length; pt++)
+      {
+        
+        if(stringOne.substring(pt, pt+1) == "\n")
+          {
+            stringFinal += "<br/>";
+            pt+=2;
+          }
+        if(stringTwo.substring(pt2, pt2+1) == "\n")
+          {
+            stringFinal2 += "<br/>";
+            pt2+=2;
+          }
+        while(stringOne[pt-2] == "\\" && stringOne[pt-1] == "n" && stringOne[pt] == "\\" && stringOne[pt+1] == "n")
+          {
+            pt+= 2;
+          }
+
+        while(stringTwo[pt2-2] == "\\" && stringTwo[pt2-1] == "n" && stringTwo[pt2] == "\\" && stringTwo[pt2+1] == "n")
+          {
+            pt2+= 2;
+          }
+          
+        while(stringOne[pt-1] == " " && stringOne[pt] == " ")
+          {
+            pt++;
+          }
+        
+        while(stringTwo[pt2-1] == " " && stringTwo[pt2] == " ")
+          {
+            pt2++;
+          }
+
+        if(stringOne[pt] == stringTwo[pt2])
+          {
+            stringFinal += stringOne[pt];
+            stringFinal2 += stringTwo[pt2];
+          }
+        else
+          {
+            stringFinal += "<span class='diff-one'>" + stringOne[pt];
+            stringFinal2 += "<span class='diff-two'>" + stringTwo[pt2];
+            
+            while(stringOne[pt-1] == " " && stringOne[pt] == " ")
+          {
+            pt++;
+          }
+        
+        while(stringTwo[pt2-1] == " " && stringTwo[pt2] == " ")
+          {
+            pt2++;
+          }
+            
+            if(stringOne[pt+1] == stringTwo[pt2+1])
+               {
+               stringFinal += "</span>"
+                 stringFinal2 += "</span>"
+               }
+            else
+            {
+            if(stringTwo.indexOf(stringOne[pt]) > pt2)
+              {
+                stringFinal2 += stringTwo.substring(pt2+1, stringTwo.indexOf(stringOne[pt]) + 1);
+                pt2 = stringTwo.indexOf(stringOne[pt]);
+              }
+        // if(stringOne.indexOf(stringTwo[pt2]) > pt)
+        //       {
+        //         stringFinal += stringOne.substring(pt+1, stringOne.indexOf(stringTwo[pt2]) + 1);
+        //         pt = stringOne.indexOf(stringTwo[pt2]);
+        //       }
+            stringFinal += "</span>";
+              stringFinal2 += "</span>";
+            }
+          }
+        pt2++;
+      }
+    $(".output-1").html(stringFinal);
+    $(".output-2").html(stringFinal2);
+  })
+})
+</script>
+  </head>
+  <body>
+    <textarea class="inputting-first"></textarea>
+    <textarea class="inputting-second"></textarea>
+    <input class="difference" type="submit" value="Difference"/>
+    <div class="outputs">
+      <div class="output-1">
+        Hello
+      </div>
+       <div class="output-2">
+        Hello
+      </div>
+    </div>
+  </body>
+</html>
