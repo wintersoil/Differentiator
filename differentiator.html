@@ -49,21 +49,21 @@ $(document).ready(function(){
         if(stringOne.substring(pt, pt+1) == "\n")
           {
             stringFinal += "<br/>";
-            pt+=1;
+            pt+=2;
           }
         if(stringTwo.substring(pt2, pt2+1) == "\n")
           {
             stringFinal2 += "<br/>";
-            pt2+=1;
+            pt2+=2;
           }
         while(stringOne[pt-2] == "\\" && stringOne[pt-1] == "n" && stringOne[pt] == "\\" && stringOne[pt+1] == "n")
           {
-            pt+= 1;
+            pt+= 2;
           }
 
         while(stringTwo.substring(pt2,pt2+1) == "\n" && stringTwo.substring(pt2-1,pt2) == "\n")
           {
-            pt2+= 1;
+            pt2+= 2;
           }
           
         while(stringOne[pt-1] == " " && stringOne[pt] == " ")
