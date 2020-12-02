@@ -1,0 +1,160 @@
+<html>
+  <head>
+   <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+  <style>
+  body {
+  font-family: "Hind Siliguri";
+}
+.outputs {
+  display:flex;
+  flex-wrap: wrap;
+}
+.output-1 {
+  background-color: #333;
+  padding: 10px 20px;
+  flex-basis: 47%;
+  margin-right: 10px;
+  color: white;
+}
+.output-2 {
+  flex-basis: 47%;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  max-width: 47%;
+  overflow:scroll;
+}
+.diff-one {
+  background-color: #FFAC9A;
+  color: white;
+}
+.diff-two {
+  background-color: lightgreen;
+  color: white;
+}
+.function {
+  background-color: lightgreen;
+  color: black;
+  margin-top: 10px;
+  padding: 10px 20px;
+}
+.function-2 {
+  background-color: #009fdf;
+  color: black;
+  margin-top: 10px;
+  padding: 10px 20px;
+}
+  </style>
+  <script>
+  $(document).ready(function(){
+  let processing = function(s) {
+    s = s.replace(/[\n]+/g, "");
+    s = s.replace(/[\s]+/g, " ");
+    return s;
+  }
+  $(".difference").click(function(){
+    stringOne = $(".inputting-first").val();
+    stringTwo = $(".inputting-second").val();
+    stringFinal = "";
+    stringFinal2 = "";
+    let pt2 = 0;
+    let array =["val", "def"];
+    stringTempOne = stringOne.trim();
+    stringTempTwo = stringTwo.trim();
+    let functions1 = [];
+    let functions2 = [];
+    while(true)
+      {
+        let beginning = stringTempOne.indexOf("def");
+        if(beginning < 0)
+          break;
+       if(stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def")>= 0)
+       {
+         functionImplementation = processing(stringTempOne.substring(beginning, stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def") + 1));
+         functionName = stringTempOne.substring(beginning + 3, stringTempOne.indexOf("(")).trim();
+         functions1.push({functionImplementation : functionImplementation, functionName: functionName});
+         
+       }
+        
+         if(stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def")< 0)
+         {
+           functionImplementation = processing(stringTempOne.substring(beginning, stringTempOne.length));
+         functionName = stringTempOne.substring(beginning + 3, stringTempOne.indexOf("(")).trim();
+         functions1.push({functionImplementation : functionImplementation, functionName: functionName});
+         }
+        
+        if(beginning + 3 > stringTempOne.length)
+          {
+            break;
+          }
+        if(stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def") > 0)
+          stringTempOne = stringTempOne.substring(stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def"), stringTempOne.length);
+        else
+          stringTempOne = stringTempOne.substring(beginning + 3, stringTempOne.length);
+      }
+    
+    while(true)
+      {
+        let beginning = stringTempTwo.indexOf("def");
+        if(beginning < 0)
+          break;
+      
+ if(stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def")>= 0)
+       {
+         functionImplementation = processing(stringTempTwo.substring(beginning, stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def") + 1));
+         functionName = stringTempTwo.substring(beginning + 3, stringTempTwo.indexOf("(")).trim();
+         functions2.push({functionImplementation : functionImplementation, functionName: functionName});
+         
+       }
+        
+         if(stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def")< 0)
+         {
+           functionImplementation = processing(stringTempTwo.substring(beginning, stringTempTwo.length));
+         functionName = stringTempTwo.substring(beginning + 3, stringTempTwo.indexOf("(")).trim();
+         functions2.push({functionImplementation : functionImplementation, functionName: functionName});
+         }
+        
+        if(beginning + 3 > stringTempTwo.length)
+          {
+            break;
+          }
+        if(stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def") > 0)
+          stringTempTwo = stringTempTwo.substring(stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def"), stringTempTwo.length);
+        else
+          stringTempTwo = stringTempTwo.substring(beginning + 3, stringTempTwo.length);
+      }
+    
+    firstProgram = "";
+    for(ptr = 0; ptr < functions1.length; ptr++)
+      {
+        firstProgram += "<div class='function'>" + functions1[ptr].functionName + "</div>" +
+          "<div class='function-implementation'>" + functions1[ptr].functionImplementation + "</div>";
+      }
+    
+    secondProgram = "";
+    for(ptr = 0; ptr < functions2.length; ptr++)
+      {
+        secondProgram += "<div class='function-2'>" + functions2[ptr].functionName + "</div>"+ "<div class='function-2-implementation'>" + functions2[ptr].functionImplementation + "</div>";
+      }
+    $(".output-1").html(firstProgram);
+    $(".output-2").html(secondProgram);
+  })
+})
+  </script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <textarea class="inputting-first" rows="30" cols="70"></textarea>
+    <textarea class="inputting-second" rows="30" cols="70"></textarea>
+    <input class="difference" type="submit" value="Difference"/>
+    <div class="outputs">
+      <div class="output-1">
+        Hello
+      </div>
+       <div class="output-2">
+        Hello
+      </div>
+    </div>
+  </body>
+</html>
