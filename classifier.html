@@ -118,33 +118,58 @@ $(document).ready(function(){
     
     while(true)
       {
-        let beginning = stringTempTwo.indexOf("def");
+        
+                let beginning = stringTempTwo.indexOf("def");
+        stringTempTwo = stringTempTwo.substring(beginning, stringTempTwo.length)
+        console.log(stringTempTwo)
         if(beginning < 0)
           break;
-      
- if(stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def")>= 0)
+       if(stringTempTwo.substring(beginning+1, stringTempTwo.length).indexOf("def")>= 0)
        {
-         functionImplementation = processing(stringTempTwo.substring(beginning, stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def") + 1));
-         functionName = stringTempTwo.substring(beginning + 3, stringTempTwo.indexOf("(")).trim();
+         
+          functionImplementation = processing(stringTempTwo.substring(0, stringTempTwo.substring(2, stringTempTwo.length).indexOf("def")));
+           let stringTempOnePartial = stringTempTwo.substring(3, stringTempTwo.length).trim();
+           let positionOpeningBraces = stringTempOnePartial.indexOf("(");
+           
+         functionName = stringTempOnePartial.substring(0, positionOpeningBraces);
          functions2.push({functionImplementation : functionImplementation, functionName: functionName});
+         console.log(functionImplementation + " <<<>>>  " + functionName)
          
        }
         
-         if(stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def")< 0)
-         {
-           functionImplementation = processing(stringTempTwo.substring(beginning, stringTempTwo.length));
-         functionName = stringTempTwo.substring(beginning + 3, stringTempTwo.indexOf("(")).trim();
-         functions2.push({functionImplementation : functionImplementation, functionName: functionName});
-         }
-        
-        if(beginning + 3 > stringTempTwo.length)
+         if(beginning + 3 > stringTempTwo.length)
           {
             break;
           }
-        if(stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def") > 0)
-          stringTempTwo = stringTempTwo.substring(stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def"), stringTempTwo.length);
+        let wholeString = stringTempTwo.substring(beginning + 1, stringTempTwo.length);
+         if(wholeString.indexOf("def")< 0)
+         {
+           functionImplementation = processing(stringTempTwo.substring(0, stringTempTwo.length));
+           let stringTempOnePartial1 = stringTempTwo.substring(3, stringTempTwo.length).trim();
+           let positionOpeningBraces = stringTempOnePartial1.indexOf("(");
+           
+         functionName = stringTempOnePartial1.substring(0, positionOpeningBraces).trim();
+         functions2.push({functionImplementation : functionImplementation, functionName: functionName});
+         }
+        
+        if(stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def")< 0)
+          {
+            break;
+          }
+        
+       
+        if(stringTempTwo.substring(beginning + 3, stringTempTwo.length).indexOf("def") >= 0)
+          {
+            let lengthy = stringTempTwo.length;
+          let stringPartial1 = stringTempTwo.substring(beginning + 3, lengthy).indexOf("def");
+          stringTempTwo = stringTempTwo.substring(stringPartial1, stringTempTwo.length);
+          }
         else
-          stringTempTwo = stringTempTwo.substring(beginning + 3, stringTempTwo.length);
+          stringTempTwo = stringTempTwo.substring(beginning, stringTempTwo.length);
+        
+        console.log(stringTempTwo);
+        
+        
       }
     
     firstProgram = "";
