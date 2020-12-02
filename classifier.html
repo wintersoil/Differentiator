@@ -48,8 +48,8 @@ body {
   <script>
 $(document).ready(function(){
   let processing = function(s) {
-    s = s.replace(/[\n]+/g, "");
-    s = s.replace(/[\s]+/g, " ");
+    s = s.replace(/[\n]+/g, "<br/>");
+    s = s.replace(/[\s]/g, "&nbsp;");
     return s;
   }
   $(".difference").click(function(){
