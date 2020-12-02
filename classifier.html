@@ -2,7 +2,7 @@
   <head>
    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
   <style>
-  body {
+body {
   font-family: "Hind Siliguri";
 }
 .outputs {
@@ -46,7 +46,7 @@
 }
   </style>
   <script>
-  $(document).ready(function(){
+$(document).ready(function(){
   let processing = function(s) {
     s = s.replace(/[\n]+/g, "");
     s = s.replace(/[\s]+/g, " ");
@@ -66,31 +66,54 @@
     while(true)
       {
         let beginning = stringTempOne.indexOf("def");
+        stringTempOne = stringTempOne.substring(beginning, stringTempOne.length)
+        console.log(stringTempOne)
         if(beginning < 0)
           break;
-       if(stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def")>= 0)
+       if(stringTempOne.substring(beginning+1, stringTempOne.length).indexOf("def")>= 0)
        {
-         functionImplementation = processing(stringTempOne.substring(beginning, stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def") + 1));
-         functionName = stringTempOne.substring(beginning + 3, stringTempOne.indexOf("(")).trim();
+         
+          functionImplementation = processing(stringTempOne.substring(0, stringTempOne.substring(2, stringTempOne.length).indexOf("def")));
+           let stringTempOnePartial = stringTempOne.substring(3, stringTempOne.length).trim();
+           let positionOpeningBraces = stringTempOnePartial.indexOf("(");
+           
+         functionName = stringTempOnePartial.substring(0, positionOpeningBraces);
          functions1.push({functionImplementation : functionImplementation, functionName: functionName});
+         console.log(functionImplementation + " <<<>>>  " + functionName)
          
        }
         
-         if(stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def")< 0)
-         {
-           functionImplementation = processing(stringTempOne.substring(beginning, stringTempOne.length));
-         functionName = stringTempOne.substring(beginning + 3, stringTempOne.indexOf("(")).trim();
-         functions1.push({functionImplementation : functionImplementation, functionName: functionName});
-         }
-        
-        if(beginning + 3 > stringTempOne.length)
+         if(beginning + 3 > stringTempOne.length)
           {
             break;
           }
-        if(stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def") > 0)
-          stringTempOne = stringTempOne.substring(stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def"), stringTempOne.length);
+        let wholeString = stringTempOne.substring(beginning + 1, stringTempOne.length);
+         if(wholeString.indexOf("def")< 0)
+         {
+           functionImplementation = processing(stringTempOne.substring(0, stringTempOne.length));
+           let stringTempOnePartial1 = stringTempOne.substring(3, stringTempOne.length).trim();
+           let positionOpeningBraces = stringTempOnePartial1.indexOf("(");
+           
+         functionName = stringTempOnePartial1.substring(0, positionOpeningBraces).trim();
+         functions1.push({functionImplementation : functionImplementation, functionName: functionName});
+         }
+        
+        if(stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def")< 0)
+          {
+            break;
+          }
+        
+       
+        if(stringTempOne.substring(beginning + 3, stringTempOne.length).indexOf("def") >= 0)
+          {
+            let lengthy = stringTempOne.length;
+          let stringPartial1 = stringTempOne.substring(beginning + 3, lengthy).indexOf("def");
+          stringTempOne = stringTempOne.substring(stringPartial1, stringTempOne.length);
+          }
         else
-          stringTempOne = stringTempOne.substring(beginning + 3, stringTempOne.length);
+          stringTempOne = stringTempOne.substring(beginning, stringTempOne.length);
+        
+        console.log(stringTempOne);
       }
     
     while(true)
@@ -127,14 +150,14 @@
     firstProgram = "";
     for(ptr = 0; ptr < functions1.length; ptr++)
       {
-        firstProgram += "<div class='function'>" + functions1[ptr].functionName + "</div>" +
+        firstProgram += "<div class='function function-implementations" + functions1[ptr].functionName + "'>" + functions1[ptr].functionName + "</div>" +
           "<div class='function-implementation'>" + functions1[ptr].functionImplementation + "</div>";
       }
     
     secondProgram = "";
     for(ptr = 0; ptr < functions2.length; ptr++)
       {
-        secondProgram += "<div class='function-2'>" + functions2[ptr].functionName + "</div>"+ "<div class='function-2-implementation'>" + functions2[ptr].functionImplementation + "</div>";
+        secondProgram += "<div class='function-2 function-2"+ functions2[ptr].functionName +"'>" + functions2[ptr].functionName + "</div>"+ "<div class='function-2-implementation'>" + functions2[ptr].functionImplementation + "</div>";
       }
     $(".output-1").html(firstProgram);
     $(".output-2").html(secondProgram);
@@ -144,7 +167,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300&display=swap" rel="stylesheet">
   </head>
-  <body>
+   <body>
     <textarea class="inputting-first" rows="30" cols="70"></textarea>
     <textarea class="inputting-second" rows="30" cols="70"></textarea>
     <input class="difference" type="submit" value="Difference"/>
