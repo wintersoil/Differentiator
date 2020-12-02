@@ -15,6 +15,8 @@ body {
   flex-basis: 47%;
   margin-right: 10px;
   color: white;
+    max-width: 47%;
+  overflow:scroll;
 }
 .output-2 {
   flex-basis: 47%;
@@ -58,12 +60,20 @@ body {
 .equal-functions:not(:last-child) {
     border-bottom: 1px solid #444;
 }
+.unequal-functions {
+    padding: 10px 20px;
+  background-color: #F7775B;
+  border-radius: 0px 0px 10px 10px;
+}
+.unequal-functions:not(:last-child) {
+    border-bottom: 1px solid #444;
+}
   </style>
   <script>
 $(document).ready(function(){
   let processing = function(s) {
     s = s.replace(/[\n]+/g, "<br/>");
-    s = s.replace(/[\s]/g, "&nbsp;");
+    s = s.replace(/[\s]{2,}/g, "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;");
     return s;
   }
   $(".difference").click(function(){
@@ -202,6 +212,7 @@ $(document).ready(function(){
     $(".output-2").html(secondProgram);
     
     let equalFunctions = [];
+    let unequalFunctions = [];
     for(let ptr = 0; ptr < functions2.length; ptr++)
       {
         for(let ptr1 = 0; ptr1 < functions1.length; ptr1++)
@@ -212,6 +223,10 @@ $(document).ready(function(){
                   {
                     equalFunctions.push(functions1[ptr1].functionName);
                   }
+                else
+                  {
+                    unequalFunctions.push(functions1[ptr1].functionName);
+                  }
               }
           }
       }
@@ -221,6 +236,10 @@ $(document).ready(function(){
       {
         equalHtml += "<div class='equal-functions equal-function-"+ mov +"'>" + equalFunctions[mov] + "</div>";
       }
+    for(let mov = 0; mov < unequalFunctions.length; mov++)
+      {
+        equalHtml += "<div class='unequal-functions unequal-function-"+ mov +"'>" + unequalFunctions[mov] + "</div>";
+      }
     $(".matches").html(equalHtml);
   })
 })
@@ -228,7 +247,7 @@ $(document).ready(function(){
     <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300&display=swap" rel="stylesheet">
   </head>
- <body>
+  <body>
     <textarea class="inputting-first" rows="30" cols="70"></textarea>
     <textarea class="inputting-second" rows="30" cols="70"></textarea>
     <input class="difference" type="submit" value="Difference"/>
