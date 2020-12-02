@@ -87,7 +87,7 @@ $(document).ready(function(){
        if(stringTempOne.substring(beginning+1, stringTempOne.length).indexOf("def")>= 0)
        {
          
-          functionImplementation = processing(stringTempOne.substring(0, stringTempOne.substring(2, stringTempOne.length).indexOf("def")));
+          functionImplementation = processing(stringTempOne.substring(0, stringTempOne.substring(2, stringTempOne.length).indexOf("def")).trim());
            let stringTempOnePartial = stringTempOne.substring(3, stringTempOne.length).trim();
            let positionOpeningBraces = stringTempOnePartial.indexOf("(");
            
@@ -104,7 +104,7 @@ $(document).ready(function(){
         let wholeString = stringTempOne.substring(beginning + 1, stringTempOne.length);
          if(wholeString.indexOf("def")< 0)
          {
-           functionImplementation = processing(stringTempOne.substring(0, stringTempOne.length));
+           functionImplementation = processing(stringTempOne.substring(0, stringTempOne.length).trim());
            let stringTempOnePartial1 = stringTempOne.substring(3, stringTempOne.length).trim();
            let positionOpeningBraces = stringTempOnePartial1.indexOf("(");
            
@@ -141,7 +141,7 @@ $(document).ready(function(){
        if(stringTempTwo.substring(beginning+1, stringTempTwo.length).indexOf("def")>= 0)
        {
          
-          functionImplementation = processing(stringTempTwo.substring(0, stringTempTwo.substring(2, stringTempTwo.length).indexOf("def")));
+          functionImplementation = processing(stringTempTwo.substring(0, stringTempTwo.substring(2, stringTempTwo.length).indexOf("def")).trim());
            let stringTempOnePartial = stringTempTwo.substring(3, stringTempTwo.length).trim();
            let positionOpeningBraces = stringTempOnePartial.indexOf("(");
            
@@ -158,7 +158,7 @@ $(document).ready(function(){
         let wholeString = stringTempTwo.substring(beginning + 1, stringTempTwo.length);
          if(wholeString.indexOf("def")< 0)
          {
-           functionImplementation = processing(stringTempTwo.substring(0, stringTempTwo.length));
+           functionImplementation = processing(stringTempTwo.substring(0, stringTempTwo.length).trim());
            let stringTempOnePartial1 = stringTempTwo.substring(3, stringTempTwo.length).trim();
            let positionOpeningBraces = stringTempOnePartial1.indexOf("(");
            
